@@ -119,10 +119,22 @@ class SQLParserUtils
 
         $carry = [];
 
-        foreach (self::getUnquotedStatementFragments($statement) as $fragment) {
-            preg_match_all('/' . $token . '/', $fragment[0], $matches, PREG_OFFSET_CAPTURE);
-            foreach ($matches[0] as $placeholder) {
-                $collector($placeholder[0], $placeholder[1], $fragment[1], $carry);
+        if (preg_match("/(ARRAY|'{2,})/i", $statement) === 0) {
+            preg_match_all(
+                "/(?<![\"'`\[[:alpha:]])($token)(?![\"'`\]])/",
+                $statement,
+                $matches,
+                PREG_OFFSET_CAPTURE
+            );
+            foreach ($matches[1] as $singleMatch) {
+                $collector($singleMatch[0], $singleMatch[1], 0, $carry);
+            }
+        } else {
+            foreach (self::getUnquotedStatementFragments($statement) as $fragment) {
+                preg_match_all('/' . $token . '/', $fragment[0], $matches, PREG_OFFSET_CAPTURE);
+                foreach ($matches[0] as $placeholder) {
+                    $collector($placeholder[0], $placeholder[1], $fragment[1], $carry);
+                }
             }
         }
 
