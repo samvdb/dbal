@@ -40,3 +40,8 @@ Powerful database abstraction layer with many features for database schema intro
   [AppVeyor 2.13 image]: https://ci.appveyor.com/api/projects/status/i88kitq8qpbm0vie/branch/2.13.x?svg=true
   [GA 2.13]: https://github.com/doctrine/dbal/actions?query=workflow%3A%22Continuous+Integration%22+branch%3A2.13.x
   [GA 2.13 image]: https://github.com/doctrine/dbal/workflows/Continuous%20Integration/badge.svg?branch=2.13.x
+
+
+# Fix applied for Shopware
+
+https://github.com/shopware/platform/issues/2854
